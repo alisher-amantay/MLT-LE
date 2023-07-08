@@ -70,17 +70,17 @@ print(elapsed_time)
 # 30/30 [==============================] - 4s 128ms/step
 # 18.821038007736206 seconds overall.
 
-# To test the results: (same as in notebook)
-# for k, col in enumerate(order):
-#     try:
-#         plt.scatter(X_test[col], prediction[k], alpha=0.7, c='k')
-#         plt.xlabel('true')
-#         plt.ylabel('predicted')
-#         y_true = X_test[col][X_test[col].notna()]
-#         y_pred = prediction[k][X_test[col].notna()].ravel()
-#         plt.title(col + ":\n" + mlt.training_utils.get_scores(y_true, y_pred))
-#         plt.show()
-#     except (ValueError, ZeroDivisionError) as e:
-#         print(f'Empty set test set for: {col}, values sum = {X_test[col].sum()}')
-#         print(f'or zero concordand pairs for the set of length 1, length of values set = {X_test[col].notna().sum()}')
-
+# To test the results: (same as in notebook `examples/graphdta-mltle-test-bindingdb/mltle/notebooks/ResCNN1GIN5_pKd.ipynb`)
+# pKd: rmse=0.994, pearson=0.754, spearman=0.716, ci=0.771
+for k, col in enumerate(order):
+    try:
+        plt.scatter(X_test[col], prediction[k], alpha=0.7, c='k')
+        plt.xlabel('true')
+        plt.ylabel('predicted')
+        y_true = X_test[col][X_test[col].notna()]
+        y_pred = prediction[k][X_test[col].notna()].ravel()
+        plt.title(col + ":\n" + mlt.training_utils.get_scores(y_true, y_pred))
+        plt.show()
+    except (ValueError, ZeroDivisionError) as e:
+        print(f'Empty set test set for: {col}, values sum = {X_test[col].sum()}')
+        print(f'or zero concordand pairs for the set of length 1, length of values set = {X_test[col].notna().sum()}')

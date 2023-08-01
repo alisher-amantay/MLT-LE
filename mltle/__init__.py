@@ -5,7 +5,7 @@ except ImportError:
     print("Failed to import tensorflow")
     raise
 
-from mltle import (training, graph_training, datagen, datamap)
+from mltle import (training, graph_training, datagen, datamap, train)
 
 try:
     from mltle import chem_utils

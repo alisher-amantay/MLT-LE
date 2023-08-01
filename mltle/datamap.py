@@ -2,6 +2,7 @@ from tqdm.auto import tqdm
 from mltle.data import maps
 from mltle.data import graphs
 import tensorflow as tf
+from mltle.train import get_embeddings
 
 
 class MapSeq:
@@ -139,16 +140,21 @@ class MapSeq:
                     print(e)
                     map_drug[drug] = (None, None)
 
+        # map_protein = {}
+        # for protein in tqdm(protein_seqs):
+        #     protein_len = int(min(len(protein), self.max_protein_len))
+        #     protein_vec = []
+
+        #     for i in range(protein_len - self.protein_step):
+        #         v = self.protein_dict.get(
+        #             protein[i:i + self.protein_step].upper(), 0)
+        #         protein_vec.append(v)
+
+        #     map_protein[protein] = protein_vec
+
         map_protein = {}
-        for protein in tqdm(protein_seqs):
-            protein_len = int(min(len(protein), self.max_protein_len))
-            protein_vec = []
-
-            for i in range(protein_len - self.protein_step):
-                v = self.protein_dict.get(
-                    protein[i:i + self.protein_step].upper(), 0)
-                protein_vec.append(v)
-
-            map_protein[protein] = protein_vec
+        embeddings = get_embeddings(protein_seqs)
+        for sequence, embedding in zip(protein_seqs, embeddings):
+            map_protein[sequence] = embedding
 
         return map_drug, map_protein
